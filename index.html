@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Test #1</title>
+  <link href="css/bootstrap.css" rel="stylesheet">
+  <link href="css/style.css" rel="stylesheet">
+</head>
+
+<body>
+  <div class="container" ng-app="app" ng-controller="MainCtrl">
+    <div class="page-header">
+      <h1 id="btn-groups">Test application</h1>
+    </div>
+
+    <form action="" class="navbar-form navbar-right">
+      <div class="input-group">
+        <input type="Search" placeholder="Search..." class="form-control" ng-model="table.config.search" />
+        <div class="input-group-btn">
+          <button class="btn btn-info">
+          <span class="glyphicon glyphicon-search"></span>
+          </button>
+        </div>
+      </div>
+    </form>
+
+    <label>
+      Results per page: 
+      <select ng-options="pages for pages in items_per_page" ng-model="table.config.items_per_page"></select>
+    </label>
+
+    <table class="table">
+      <tr>
+        <th ng-click="table.toggle_order('shop_article_id')"><span ng-show="table.config.order_by=='shop_article_id'" class="glyphicon" ng-class="get_rclass()"></span>Aticle ID</th>
+        <th ng-click="table.toggle_order('shops_shop_id')"><span ng-show="table.config.order_by=='shops_shop_id'" class="glyphicon" ng-class="get_rclass()"></span>Shop Id</th>
+        <th ng-click="table.toggle_order('productname')"><span ng-show="table.config.order_by=='productname'" class="glyphicon" ng-class="get_rclass()"></span>Name</th>
+        <th ng-click="table.toggle_order('label')"><span ng-show="table.config.order_by=='label'" class="glyphicon" ng-class="get_rclass()"></span>Label</th>
+        <th ng-click="table.toggle_order('price')"><span ng-show="table.config.order_by=='price'" class="glyphicon" ng-class="get_rclass()"></span>Price</th>
+        <th ng-click="table.toggle_order('currency')"><span ng-show="table.config.order_by=='currency'" class="glyphicon" ng-class="get_rclass()"></span>Currency</th>
+      </tr>
+      <tr ng-repeat="item in table.items.pages[table.current_page]" ng-click="show_details(item)">
+        <td>{{item.shop_article_id}}</td>
+        <td>{{item.shops_shop_id}}</td>
+        <td>{{item.productname}}</td>
+        <td>{{item.label}}</td>
+        <td>{{item.price}}</td>
+        <td>{{item.currency}}</td>
+      </tr>
+    </table>
+    <ul class="list-inline pagina">
+      <li ng-repeat="page in table.items.pages">
+        <a href ng-class="{active:$index==table.current_page}" ng-click="table.set_page($index)">{{$index+1}}</a>
+      </li>
+    </ul>
+  </div>
+
+  <!-- <script src="js/vendors/jquery.js"></script> -->
+  <script src="js/vendors/lodash.js"></script>
+  <script src="js/vendors/angular.js"></script>
+  <!-- <script src="js/vendors/modal.js"></script> -->
+  <!-- <script src="js/vendors/bootstrap.js"></script> -->
+
+  <script src="js/app/app.js"></script>
+  <script src="js/app/table.js"></script>
+  
+</body>
+</html>
